@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber
 public class RegistryHandeler {
 
-	public static int line = 0;
+	public static int editLine = 0;
 	public static int w = 0;
 	public static double x = 0;
 	public static double y = 0;
@@ -41,27 +41,27 @@ public class RegistryHandeler {
 			String[] cm = e.getMessage().split(" ");
 			switch (cm[0]) {
 			case "l":
-				line = Integer.parseInt(cm[1]);
+				editLine = Integer.parseInt(cm[1]);
 				break;
 			case "w":
 				w = Integer.parseInt(cm[1]);
-				TileEntityConsoleRenderer.a[line] = w;
+				TileEntityConsoleRenderer.a[editLine] = w;
 				break;
 			case "x":
 				x = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[line][0] = x;
+				TileEntityConsoleRenderer.ress[editLine][0] = x;
 				break;
 			case "y":
 				y = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[line][1] = y;
+				TileEntityConsoleRenderer.ress[editLine][1] = y;
 				break;
 			case "z":
 				z = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[line][2] = z;
+				TileEntityConsoleRenderer.ress[editLine][2] = z;
 				break;
 			case "s":
 				s = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[line][3] = s;
+				TileEntityConsoleRenderer.ress[editLine][3] = s;
 				break;
 			default:
 				throw new Throwable();
