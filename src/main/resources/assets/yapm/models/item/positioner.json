@@ -1,0 +1,7 @@
+{
+   "parent": "computercraft:block/modem",
+   "textures": {
+      "front":"yapm:blocks/dummy_gps",
+      "back":"yapm:blocks/modem_bak"
+   }
+}

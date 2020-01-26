@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+        "#C#",
+        "iCi",
+        "iGi"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:redstone"
+        },
+        "C": {
+            "item": "minecraft:coal_block"
+        },
+        "i": {
+            "item": "minecraft:iron_ingot"
+        },
+        "G": {
+            "item": "minecraft:gunpowder"
+        }
+    },
+  "result": {
+    "item": "yapm:engine"
+  }
+}

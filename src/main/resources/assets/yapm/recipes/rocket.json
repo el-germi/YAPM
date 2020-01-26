@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "%C%",
+    "RRR"
+  ],
+  "key": {
+    "#": {
+      "item": "yapm:satelite"
+    },
+    "%": {
+      "item": "minecraft:iron_block"
+    },
+    "R": {
+      "item": "yapm:engine"
+    },
+    "C": {
+      "item": "computercraft:computer",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "yapm:rocket"
+  }
+}

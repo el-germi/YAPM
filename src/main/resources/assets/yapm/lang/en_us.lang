@@ -1,0 +1,43 @@
+//en_us
+
+//creative tab
+itemGroup.yapm=YAPM
+
+//Items
+item.positioner.name=GPS
+item.satelite.name=Satellite
+item.rocket.name=Satellite Rocket
+item.engine.name=Rocket Engine
+item.music.name=Music Disc
+item.record.music.desc=SIAMÉS - Summer Nights
+
+//Blocks
+tile.brokenpc.name=Broken Computer
+tile.brokenpcmos.name=Broken Mossy Computer
+tile.brokenpcadvmos.name=Broken Advanced Mossy Computer
+tile.brokenpcadv.name=Broken Advanced Computer
+tile.radio.name=Communications Relay
+tile.console.name=Console
+
+//computer adjective
+yapm.turtle_upgrade.gpsystem=Positional
+yapm.phone_upgrade.gpsystem=Positional
+
+//Entity
+entity.rocket.name=Rocket
+entity.spark.name=Spark FX
+
+//command
+commands.yapm.usage=yapm [variable] <true|false>
+commands.yapm.succsess=%s is %s
+commands.yapm.win=Success
+
+//subtitles
+subtitles.entity.rocket=Rocket takeoff
+subtitles.entity.rocket_place=Rocket placing
+subtitles.entity.rocket_hit=Punching rocket
+subtitles.entity.sparks=Electric failure
+
+//msg
+msg.place.fail=Not enough space, needs a %s x %s x %s blocks
+msg.launch.fail=Needs open skies to launch

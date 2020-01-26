@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "front": "yapm:blocks/computer_front_mossy",
+        "side": "yapm:blocks/computer_side",
+        "top": "yapm:blocks/computer_top"
+    }
+}

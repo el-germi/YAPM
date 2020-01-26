@@ -1,0 +1,22 @@
+{
+    "type": "chest",
+    "pools": [
+        {
+            "name": "main",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "yapm:music",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "yapm:randomize",
+                            "ores": "record"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

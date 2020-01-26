@@ -1,0 +1,7 @@
+{
+    "pack": {
+        "description": "YAPM resources",
+        "pack_format": 3,
+        "_comment": "All files should be lowercase (eg: en_us.lang)."
+    }
+}

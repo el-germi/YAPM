@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "computercraft:peripheral",
+      "data": 1
+    }
+  ],
+  "result": {
+      "item": "yapm:positioner"
+  }
+}

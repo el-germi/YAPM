@@ -1,0 +1,34 @@
+{
+    "variants": {
+        "facing=north,playing=false": {
+            "model": "yapm:computer_broken_adv"
+        },
+        "facing=south,playing=false": {
+            "model": "yapm:computer_broken_adv",
+            "y": 180
+        },
+        "facing=west,playing=false": {
+            "model": "yapm:computer_broken_adv",
+            "y": 270
+        },
+        "facing=east,playing=false": {
+            "model": "yapm:computer_broken_adv",
+            "y": 90
+        },
+        "facing=north,playing=true": {
+            "model": "yapm:computer_broken_adv"
+        },
+        "facing=south,playing=true": {
+            "model": "yapm:computer_broken_adv",
+            "y": 180
+        },
+        "facing=west,playing=true": {
+            "model": "yapm:computer_broken_adv",
+            "y": 270
+        },
+        "facing=east,playing=true": {
+            "model": "yapm:computer_broken_adv",
+            "y": 90
+        }
+    }
+}

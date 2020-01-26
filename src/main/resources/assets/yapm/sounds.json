@@ -1,0 +1,57 @@
+{
+  "entity.rocket":{
+    "subtitle": "subtitles.entity.rocket",
+    "sounds":[{
+      "name": "yapm:entity/rocket",
+      "stream": true
+    }]
+  },
+  "entity.rocket_hit":{
+    "subtitle": "subtitles.entity.rocket_hit",
+    "sounds":[{
+      "name": "yapm:entity/metal_barrel_impact_hard1"
+    }]
+  },
+  "entity.sparks":{
+    "subtitle": "subtitles.entity.sparks",
+    "sounds":[{
+      "name": "yapm:entity/sparks"
+    }]
+  },
+  "entity.rocket_place":{
+    "subtitle": "subtitles.entity.rocket_place",
+    "sounds":[{
+      "name": "yapm:entity/metal_barrel_impact_hard1",
+      "weight": 4
+    },{
+      "name": "yapm:entity/metal_barrel_impact_hard2",
+      "weight": 3
+    },{
+      "name": "yapm:entity/metal_barrel_impact_hard3",
+      "weight": 3
+    },{
+      "name": "yapm:entity/metal_barrel_impact_hard5",
+      "weight": 3
+    },{
+      "name": "yapm:entity/metal_barrel_impact_hard6",
+      "weight": 3
+    },{
+      "name": "yapm:entity/metal_barrel_impact_hard7",
+      "weight": 3
+    },{
+      "name": "yapm:entity/metal_barrel_impact_soft1"
+    },{
+      "name": "yapm:entity/metal_barrel_impact_soft2"
+    },{
+      "name": "yapm:entity/metal_barrel_impact_soft3"
+    },{
+      "name": "yapm:entity/metal_barrel_impact_soft4"
+    }]
+  },
+  "music.summer_nights":{
+    "sounds": [{
+      "name": "yapm:music/summer_nights",
+      "stream": true
+    }]
+  }
+}

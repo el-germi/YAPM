@@ -1,0 +1,16 @@
+[
+{
+  "modid": "yapm",
+  "name": "YAPM",
+  "description": "Got bored, decided to make a ComputerCraft add-on the same way someone may make a collage, there's no more than 1kb of original content here",
+  "version": "1.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Germimonte"],
+  "credits": "The Forge and FML guys, Dan200, TechnoVision(YT), austinv11(git) and rolandoislas(git)",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["computercraft"]
+}
+]
