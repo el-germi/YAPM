@@ -160,10 +160,10 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		case 0:
 			lines = Math.min(7, args.length);
 			text = new SafeAL<ITextComponent>(lines);
-			for (int j = 0; j < lines; ++j) {
+			for (int j = 0; j < lines; j++) {
 				String s = args[j].toString();
 				if (s != null && !"".equals(s.trim())) {
-					text.set(j, new TextComponentString(s).setStyle(new Style()));
+					text.add(new TextComponentString(s).setStyle(new Style()));
 				}
 			}
 			refresh();
@@ -180,9 +180,9 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		case 3:
 			lines = Math.min(7, args.length);
 			text = new SafeAL<ITextComponent>(lines);
-			for (int j = 0; j < lines; ++j) {
+			for (int j = 0; j < lines; j++) {
 				try {
-					text.set(j, TextComponentUtils.processComponent(dummy,
+					text.add(TextComponentUtils.processComponent(dummy,
 							ITextComponent.Serializer.jsonToComponent(args[j].toString()), null));
 				} catch (Exception e) {
 					throw new LuaException(e.getMessage() + " at line " + (j + 1));

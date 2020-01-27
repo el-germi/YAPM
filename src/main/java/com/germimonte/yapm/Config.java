@@ -7,6 +7,10 @@ import net.minecraftforge.common.config.Config.RequiresWorldRestart;
 @net.minecraftforge.common.config.Config(modid = YAPM.MOD_ID)
 public class Config {
 
+	@Name("Debug features")
+	@Comment({ "developer features, may cause unstability", "or not, I don't know or care", "default = false" })
+	public static boolean debug = true;
+
 	@Name("Is Satellite Required")
 	@Comment({ "whether you need the satellite in orbit before accesing the position features", "default = true" })
 	public static boolean isSatelliteReqired = true;
