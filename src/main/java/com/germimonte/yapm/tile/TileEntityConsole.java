@@ -87,6 +87,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		return nbt;
 	}
 
+	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());
 	}
@@ -96,16 +97,17 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		this.readFromNBT(packet.getNbtCompound());
 	}
 
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return this.writeToNBT(new NBTTagCompound());
+	}
+
 	public boolean exec(EntityPlayer player) {
 		isOn = !isOn;
 		world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, .3f, isOn ? .6f : .5f);
 		fireEvent("console", isOn, player.getDisplayNameString());
 		refresh();
 		return true;
-	}
-
-	public NBTTagCompound getUpdateTag() {
-		return this.writeToNBT(new NBTTagCompound());
 	}
 
 	void refresh() {
@@ -204,7 +206,6 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 				isOn = false;
 				break;
 			case "toggle":
-			case "togle":
 				isOn = !isOn;
 				break;
 			default:
