@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 
 public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 
-	private final ICommandSender dummy = new DummyICS(null, 0, world, world.getMinecraftServer(), pos);
+	private final DummyICS dummy = new DummyICS(null, 0, world, pos);
 
 	public boolean isOn = false;
 	public SafeAL<ITextComponent> text = new SafeAL<ITextComponent>(7);
@@ -159,6 +159,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		switch (method) {
 		case 0:
 			lines = Math.min(7, args.length);
+			text = new SafeAL<ITextComponent>(lines);
 			for (int j = 0; j < lines; ++j) {
 				String s = args[j].toString();
 				if (s != null && !"".equals(s.trim())) {
@@ -178,6 +179,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 			}
 		case 3:
 			lines = Math.min(7, args.length);
+			text = new SafeAL<ITextComponent>(lines);
 			for (int j = 0; j < lines; ++j) {
 				try {
 					text.set(j, TextComponentUtils.processComponent(dummy,

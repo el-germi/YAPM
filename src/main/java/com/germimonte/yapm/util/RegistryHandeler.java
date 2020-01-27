@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber
 public class RegistryHandeler {
 
-	public static int editLine = 0;
+	public static int l = 0;
 	public static int w = 0;
 	public static double x = 0;
 	public static double y = 0;
@@ -41,27 +41,27 @@ public class RegistryHandeler {
 			String[] cm = e.getMessage().split(" ");
 			switch (cm[0]) {
 			case "l":
-				editLine = Integer.parseInt(cm[1]);
+				l = Integer.parseInt(cm[1]);
 				break;
 			case "w":
 				w = Integer.parseInt(cm[1]);
-				TileEntityConsoleRenderer.a[editLine] = w;
+				TileEntityConsoleRenderer.a[l] = w;
 				break;
 			case "x":
 				x = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[editLine][0] = x;
+				TileEntityConsoleRenderer.ress[l][0] = x;
 				break;
 			case "y":
 				y = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[editLine][1] = y;
+				TileEntityConsoleRenderer.ress[l][1] = y;
 				break;
 			case "z":
 				z = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[editLine][2] = z;
+				TileEntityConsoleRenderer.ress[l][2] = z;
 				break;
 			case "s":
 				s = Double.parseDouble(cm[1]);
-				TileEntityConsoleRenderer.ress[editLine][3] = s;
+				TileEntityConsoleRenderer.ress[l][3] = s;
 				break;
 			default:
 				throw new Throwable();
@@ -70,7 +70,7 @@ public class RegistryHandeler {
 			e.setCanceled(true);
 		} catch (Throwable t) {
 			if (e.getMessage().equalsIgnoreCase("dump")) {
-				Util.msgArchitect(e.getPlayer(), String.format("w:%d x:%f y:%f z:%f s:%f", w, x, y, z, s));
+				Util.msgArchitect(e.getPlayer(), String.format("line: %d w:%d x:%f y:%f z:%f s:%f", l, w, x, y, z, s));
 				e.setCanceled(true);
 			}
 		}
