@@ -1,12 +1,8 @@
 package com.germimonte.yapm.blocks;
 
-import javax.annotation.Nullable;
-
 import com.germimonte.yapm.tile.TileEntityConsole;
 
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.BlockWorkbench;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
@@ -15,7 +11,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
@@ -83,12 +78,12 @@ public class BlockConsole extends BlockBase {
 
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-		return state.withProperty(FACING, rot.rotate((EnumFacing) state.getValue(FACING)));
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
 	@Override
 	public IBlockState withMirror(IBlockState state, Mirror mirror) {
-		return state.withRotation(mirror.toRotation((EnumFacing) state.getValue(FACING)));
+		return state.withRotation(mirror.toRotation(state.getValue(FACING)));
 	}
 
 	@Override
@@ -129,5 +124,20 @@ public class BlockConsole extends BlockBase {
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te != null && te instanceof TileEntityConsole) {
+			TileEntityConsole c = (TileEntityConsole) te;
+			return c.isOn ? c.lines : 0;
+		}
+		return 0;
 	}
 }
