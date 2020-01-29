@@ -1,5 +1,7 @@
 package com.germimonte.yapm.blocks;
 
+import java.util.ArrayList;
+
 import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.tile.TileEntityConsole;
 
@@ -18,6 +20,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockGhost extends Block {
+
+	public static final ArrayList<Block> valid = new ArrayList<Block>();
 
 	public BlockGhost(String s) {
 		super(Material.ANVIL);
@@ -55,11 +59,10 @@ public class BlockGhost extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote && !destroy(world, pos)) {
-			return world.getBlockState(pos.down()).getBlock().onBlockActivated(world, pos.down(), state, player, hand,
-					facing, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World w, BlockPos pos, IBlockState s, EntityPlayer p, EnumHand h, EnumFacing f,
+			float x, float y, float z) {
+		if (!w.isRemote && !destroy(w, pos)) {
+			return w.getBlockState(pos.down()).getBlock().onBlockActivated(w, pos.down(), s, p, h, f, x, y, z);
 		}
 		return true;
 	}
@@ -70,7 +73,7 @@ public class BlockGhost extends Block {
 	}
 
 	boolean destroy(World world, BlockPos pos) {
-		if (!world.getBlockState(pos.down()).getBlock().equals(ModBlocks.CONSOLE)) {
+		if (!valid.contains(world.getBlockState(pos.down()).getBlock())) {
 			world.setBlockToAir(pos);
 			return true;
 		}

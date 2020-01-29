@@ -3,6 +3,7 @@ package com.germimonte.yapm.blocks;
 import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.tile.TileEntityConsole;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -36,6 +37,7 @@ public class BlockConsole extends BlockBase {
 		super(Material.ANVIL, s);
 		this.lightValue = 1;
 		this.setHardness(2);
+		BlockGhost.valid.add(this);
 	}
 
 	@Override
@@ -156,14 +158,20 @@ public class BlockConsole extends BlockBase {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer,
-			ItemStack stack) {
-		super.onBlockPlacedBy(world, pos, state, placer, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase p, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, p, stack);
 		world.setBlockState(pos.up(), ModBlocks.GHOST.getDefaultState());
 	}
 
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos) {
 		return super.canPlaceBlockAt(world, pos) && super.canPlaceBlockAt(world, pos.up());
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		if (world.isAirBlock(pos.up())) {
+			world.setBlockState(pos.up(), ModBlocks.GHOST.getDefaultState());
+		}
 	}
 }
