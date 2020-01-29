@@ -37,7 +37,7 @@ public class RegistryHandeler {
 
 	@SubscribeEvent
 	public static void onChat(net.minecraftforge.event.ServerChatEvent e) {
-		if (Config.debug) {
+		/*if (Config.debug) {
 			try {
 				String[] cm = e.getMessage().split(" ");
 				switch (cm[0]) {
@@ -81,7 +81,7 @@ public class RegistryHandeler {
 					e.setCanceled(true);
 				}
 			}
-		}
+		}*/
 	}
 
 	@SubscribeEvent

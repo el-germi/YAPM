@@ -10,7 +10,6 @@ import com.germimonte.yapm.util.Util;
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
-import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -102,7 +101,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
-	public boolean exec(EntityPlayer player) {
+	public boolean runn(EntityPlayer player) {
 		isOn = !isOn;
 		world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, .3f, isOn ? .6f : .5f);
 		fireEvent("console", isOn, player.getDisplayNameString());
@@ -156,7 +155,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 	}
 
 	@Override
-	public Object[] callMethod(IComputerAccess pc, ILuaContext ctx, int method, Object[] args)
+	public Object[] exec(IComputerAccess pc, ILuaContext ctx, int method, Object[] args)
 			throws LuaException, InterruptedException {
 		switch (method) {
 		case 0:
@@ -211,8 +210,10 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 			default:
 				throw new LuaException("Usage: power [on|off|toggle]");
 			}
-			if (old != isOn)
+			if (old != isOn) {
+				//fireEvent("console", isOn, ((Computer) pc).getLabel());
 				refresh();
+			}
 			return EMPTY_RESPONSE;
 		default:
 			throw new LuaException("HOW DID WE GET HERE?, there is no method " + (method + 1));

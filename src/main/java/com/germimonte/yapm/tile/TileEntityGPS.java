@@ -53,7 +53,7 @@ public class TileEntityGPS extends TileEntity implements IPeripheralBase {
 	}
 
 	@Override
-	public Object[] callMethod(IComputerAccess pc, ILuaContext con, int meth, Object[] args)
+	public Object[] exec(IComputerAccess pc, ILuaContext con, int meth, Object[] args)
 			throws LuaException, InterruptedException {
 		boolean satLink = SatManager.isSatOnline(this.getWorld());
 		switch (meth) {

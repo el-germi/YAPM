@@ -11,6 +11,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
@@ -40,14 +41,18 @@ public class BlockConsole extends BlockBase {
 	}
 
 	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.INVISIBLE;
+	}
+
+	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
 			TileEntity tileentity = world.getTileEntity(pos);
-			return tileentity instanceof TileEntityConsole ? ((TileEntityConsole) tileentity).exec(player) : false;
+			return tileentity instanceof TileEntityConsole ? ((TileEntityConsole) tileentity).runn(player) : false;
 		}
 		return true;
-
 	}
 
 	@Override

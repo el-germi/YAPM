@@ -43,14 +43,13 @@ public class RenderSparks extends Render<EntitySparks> {
 		for (Lighting l : entity.lis)
 			l.render(bufferbuilder, .5f);
 		tessellator.draw();
-
 		bufferbuilder.setTranslation(0, 0, 0);
 		GlStateManager.color(1f, 1f, 1f, 1f);
 		GlStateManager.disableBlend();
 		GlStateManager.enableLighting();
 		GlStateManager.enableTexture2D();
 		glPopMatrix();
-		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+		//super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
 	@Override
