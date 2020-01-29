@@ -1,5 +1,6 @@
 package com.germimonte.yapm.blocks;
 
+import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.tile.TileEntityConsole;
 
 import net.minecraft.block.BlockHorizontal;
@@ -10,6 +11,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -31,8 +33,9 @@ public class BlockConsole extends BlockBase {
 	private static final AxisAlignedBB AABB_East = new AxisAlignedBB(.2, 0, -.3, .8, 1.9, 1.3);
 
 	public BlockConsole(String s) {
-		super(Material.CIRCUITS, s);
+		super(Material.ANVIL, s);
 		this.lightValue = 1;
+		this.setHardness(2);
 	}
 
 	@Override
@@ -144,5 +147,23 @@ public class BlockConsole extends BlockBase {
 			return c.isOn ? c.lines : 0;
 		}
 		return 0;
+	}
+
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		super.breakBlock(world, pos, state);
+		world.setBlockToAir(pos.up());
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, placer, stack);
+		world.setBlockState(pos.up(), ModBlocks.GHOST.getDefaultState());
+	}
+
+	@Override
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
+		return super.canPlaceBlockAt(world, pos) && super.canPlaceBlockAt(world, pos.up());
 	}
 }

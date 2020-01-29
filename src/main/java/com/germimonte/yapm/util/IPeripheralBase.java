@@ -39,7 +39,7 @@ public interface IPeripheralBase extends IPeripheral {
 	}
 
 	/**
-	 * TODO change this for an actual check(idk)
+	 * TODO change this for an actual check (is this enough?)
 	 */
 	@Override
 	public default boolean equals(@Nullable IPeripheral other) {

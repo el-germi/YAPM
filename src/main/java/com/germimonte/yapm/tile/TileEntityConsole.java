@@ -1,11 +1,15 @@
 package com.germimonte.yapm.tile;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.util.DummyICS;
 import com.germimonte.yapm.util.IPeripheralBase;
 import com.germimonte.yapm.util.SafeAL;
 import com.germimonte.yapm.util.Util;
+import com.google.gson.Gson;
 
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
@@ -35,10 +39,11 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 
 	private final DummyICS dummy = new DummyICS(null, 0, world, pos);
 
-	public boolean isOn = false;
 	public SafeAL<ITextComponent> text = new SafeAL<ITextComponent>(7);
+	public Style style = new Style();
+
+	public boolean isOn = false;
 	public int lines = 1;
-	public Style style = null;
 
 	public TileEntityConsole(World world, BlockPos pos) {
 		this(world);
@@ -72,6 +77,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		for (int i = 0; i < 7; ++i) {
 			text.add(i, ITextComponent.Serializer.jsonToComponent(nbt.getString("Text" + i)));
 		}
+		this.style = text.safeGet(0, new TextComponentString("")).getStyle();
 	}
 
 	@Override
@@ -133,6 +139,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 			s.setColor(TextFormatting.BLACK);
 		}
 		if (f != null) {
+			f = f.toLowerCase();
 			s.setStrikethrough(f.contains("m"));
 			s.setObfuscated(f.contains("k"));
 			s.setUnderlined(f.contains("n"));
@@ -164,7 +171,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 			for (int j = 0; j < lines; j++) {
 				String s = args[j].toString();
 				if (s != null && !"".equals(s.trim())) {
-					text.add(new TextComponentString(s).setStyle(new Style()));
+					text.add(new TextComponentString(s).setStyle(style));
 				}
 			}
 			refresh();
@@ -211,7 +218,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 				throw new LuaException("Usage: power [on|off|toggle]");
 			}
 			if (old != isOn) {
-				//fireEvent("console", isOn, ((Computer) pc).getLabel());
+				// fireEvent("console", isOn, ((Computer) pc).getLabel());
 				refresh();
 			}
 			return EMPTY_RESPONSE;

@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.germimonte.yapm.blocks.BlockBrokenPC;
 import com.germimonte.yapm.blocks.BlockConsole;
+import com.germimonte.yapm.blocks.BlockGhost;
 import com.germimonte.yapm.blocks.BlockRadio;
 import com.germimonte.yapm.items.ItemBase;
 
@@ -22,6 +23,7 @@ public class ModBlocks {
 	public static final BlockRadio RADIO = new BlockRadio("radio", false);
 	public static final BlockRadio RADIO_LIT = new BlockRadio("radio_lit", true);
 	public static final BlockConsole CONSOLE = new BlockConsole("console");
+	public static final BlockGhost GHOST = new BlockGhost("ghost");
 
 	public static void addBlock(Block i) {
 		BLOCKS.add(i);
