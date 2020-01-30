@@ -120,9 +120,10 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		if (world != null) {
 			IBlockState state = world.getBlockState(pos);
 			world.notifyBlockUpdate(pos, state, state, 3);
-
-			state = world.getBlockState(pos.up());// TODO fix this
-			world.notifyBlockUpdate(pos.up(), state, state, 3);
+			BlockPos p = pos.up();
+			state = world.getBlockState(p);
+			world.notifyBlockUpdate(p, state, state, 3);
+			world.updateComparatorOutputLevel(p, getBlockType());
 		}
 	}
 
