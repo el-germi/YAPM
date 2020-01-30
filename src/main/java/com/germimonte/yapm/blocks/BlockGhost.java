@@ -49,6 +49,16 @@ public class BlockGhost extends Block {
 	}
 
 	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(IBlockState bs, World world, BlockPos pos) {
+		return world.getBlockState(pos.down()).getComparatorInputOverride(world, pos.down());
+	}
+
+	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}

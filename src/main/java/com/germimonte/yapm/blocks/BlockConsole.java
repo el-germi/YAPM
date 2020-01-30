@@ -10,6 +10,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -174,4 +175,10 @@ public class BlockConsole extends BlockBase {
 			world.setBlockState(pos.up(), ModBlocks.GHOST.getDefaultState());
 		}
 	}
+
+	/*@Override
+	public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
+		entity.fall(fallDistance, 0.5F);
+		world.destroyBlock(pos, true);
+	}*/
 }
