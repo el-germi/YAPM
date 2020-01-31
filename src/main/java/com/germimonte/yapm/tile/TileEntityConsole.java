@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.util.DummyICS;
 import com.germimonte.yapm.util.IPeripheralBase;
@@ -107,7 +110,7 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
-	public boolean runn(EntityPlayer player) {
+	public boolean runn(@Nonnull EntityPlayer player) {
 		isOn = !isOn;
 		world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, .3f, isOn ? .6f : .5f);
 		fireEvent("console", isOn, player.getDisplayNameString());
@@ -127,7 +130,8 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 		}
 	}
 
-	private Style parse(String c, String f) {
+	@Nonnull
+	private Style parse(@Nullable String c, @Nullable String f) {
 		Style s = new Style();
 		if (f != null) {
 			try {
