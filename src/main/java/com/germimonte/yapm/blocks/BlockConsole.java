@@ -161,7 +161,8 @@ public class BlockConsole extends BlockBase {
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase p, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, p, stack);
-		world.setBlockState(pos.up(), ModBlocks.GHOST.getDefaultState());
+		world.setBlockState(pos.up(),
+				ModBlocks.GHOST.getDefaultState().withProperty(ModBlocks.GHOST.DIR, EnumFacing.DOWN));
 	}
 
 	@Override
@@ -172,13 +173,14 @@ public class BlockConsole extends BlockBase {
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		if (world.isAirBlock(pos.up())) {
-			world.setBlockState(pos.up(), ModBlocks.GHOST.getDefaultState());
+			world.setBlockState(pos.up(),
+					ModBlocks.GHOST.getDefaultState().withProperty(ModBlocks.GHOST.DIR, EnumFacing.DOWN));
 		}
 	}
 
-	/*@Override
-	public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
-		entity.fall(fallDistance, 0.5F);
-		world.destroyBlock(pos, true);
-	}*/
+	/*
+	 * @Override public void onFallenUpon(World world, BlockPos pos, Entity entity,
+	 * float fallDistance) { entity.fall(fallDistance, 0.5F);
+	 * world.destroyBlock(pos, true); }
+	 */
 }

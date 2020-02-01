@@ -7,7 +7,9 @@ import com.germimonte.yapm.tile.TileEntityConsole;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,6 +25,7 @@ import net.minecraft.world.World;
 public class BlockGhost extends Block {
 
 	public static final ArrayList<Block> valid = new ArrayList<Block>();
+	public static final PropertyDirection DIR = PropertyDirection.create("facing");
 
 	public BlockGhost(String s) {
 		super(Material.ANVIL);
@@ -55,8 +58,9 @@ public class BlockGhost extends Block {
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState bs, World world, BlockPos pos) {
-		return world.getBlockState(pos.down()).getComparatorInputOverride(world, pos.down());
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		return world.getBlockState(pos.offset(state.getValue(DIR))).getComparatorInputOverride(world,
+				pos.offset(state.getValue(DIR)));
 	}
 
 	@Override
@@ -70,21 +74,22 @@ public class BlockGhost extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World w, BlockPos pos, IBlockState s, EntityPlayer p, EnumHand h, EnumFacing f,
+	public boolean onBlockActivated(World w, BlockPos pos, IBlockState state, EntityPlayer p, EnumHand h, EnumFacing f,
 			float x, float y, float z) {
-		if (!w.isRemote && !destroy(w, pos)) {
-			return w.getBlockState(pos.down()).getBlock().onBlockActivated(w, pos.down(), s, p, h, f, x, y, z);
+		if (!w.isRemote && !destroy(w, pos, state)) {
+			return w.getBlockState(pos.offset(state.getValue(DIR))).getBlock().onBlockActivated(w,
+					pos.offset(state.getValue(DIR)), state, p, h, f, x, y, z);
 		}
 		return true;
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
-		destroy(world, pos);
+		destroy(world, pos, state);
 	}
 
-	boolean destroy(World world, BlockPos pos) {
-		if (!valid.contains(world.getBlockState(pos.down()).getBlock())) {
+	boolean destroy(World world, BlockPos pos, IBlockState state) {
+		if (!valid.contains(world.getBlockState(pos.offset(state.getValue(DIR))).getBlock())) {
 			world.setBlockToAir(pos);
 			return true;
 		}
@@ -94,16 +99,31 @@ public class BlockGhost extends Block {
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		super.breakBlock(world, pos, state);
-		world.destroyBlock(pos.down(), true);
+		world.destroyBlock(pos.offset(state.getValue(DIR)), true);
 	}
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (player.capabilities.isCreativeMode) {
-			world.setBlockToAir(pos.down());
+			world.setBlockToAir(pos.offset(state.getValue(DIR)));
 		} else {
 			super.onBlockHarvested(world, pos, state, player);
 		}
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(DIR, EnumFacing.values()[meta]);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(DIR).getIndex();
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, DIR);
 	}
 
 	@Override
