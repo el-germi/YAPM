@@ -59,8 +59,7 @@ public class BlockGhost extends Block {
 
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		return world.getBlockState(pos.offset(state.getValue(DIR))).getComparatorInputOverride(world,
-				pos.offset(state.getValue(DIR)));
+		return world.getBlockState(sourcePos(state, pos)).getComparatorInputOverride(world, sourcePos(state, pos));
 	}
 
 	@Override
@@ -74,11 +73,11 @@ public class BlockGhost extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World w, BlockPos pos, IBlockState state, EntityPlayer p, EnumHand h, EnumFacing f,
-			float x, float y, float z) {
-		if (!w.isRemote && !destroy(w, pos, state)) {
-			return w.getBlockState(pos.offset(state.getValue(DIR))).getBlock().onBlockActivated(w,
-					pos.offset(state.getValue(DIR)), state, p, h, f, x, y, z);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			EnumFacing face, float x, float y, float z) {
+		if (!world.isRemote && !destroy(world, pos, state)) {
+			return world.getBlockState(sourcePos(state, pos)).getBlock().onBlockActivated(world, sourcePos(state, pos),
+					state, player, hand, face, x, y, z);
 		}
 		return true;
 	}
@@ -88,24 +87,16 @@ public class BlockGhost extends Block {
 		destroy(world, pos, state);
 	}
 
-	boolean destroy(World world, BlockPos pos, IBlockState state) {
-		if (!valid.contains(world.getBlockState(pos.offset(state.getValue(DIR))).getBlock())) {
-			world.setBlockToAir(pos);
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		super.breakBlock(world, pos, state);
-		world.destroyBlock(pos.offset(state.getValue(DIR)), true);
+		world.destroyBlock(sourcePos(state, pos), true);
 	}
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (player.capabilities.isCreativeMode) {
-			world.setBlockToAir(pos.offset(state.getValue(DIR)));
+			world.setBlockToAir(sourcePos(state, pos));
 		} else {
 			super.onBlockHarvested(world, pos, state, player);
 		}
@@ -129,5 +120,17 @@ public class BlockGhost extends Block {
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
 		return BlockFaceShape.UNDEFINED;
+	}
+
+	boolean destroy(World world, BlockPos pos, IBlockState state) {
+		if (!valid.contains(world.getBlockState(sourcePos(state, pos)).getBlock())) {
+			world.setBlockToAir(pos);
+			return true;
+		}
+		return false;
+	}
+
+	public BlockPos sourcePos(IBlockState state, BlockPos pos) {
+		return pos.offset(state.getValue(DIR));
 	}
 }
