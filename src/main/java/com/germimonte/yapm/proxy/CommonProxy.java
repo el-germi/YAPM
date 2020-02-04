@@ -8,6 +8,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.germimonte.yapm.YAPM;
@@ -19,6 +20,9 @@ import com.germimonte.yapm.init.ModPeripherals;
 import com.germimonte.yapm.tile.TileEntityConsole;
 import com.germimonte.yapm.tile.TileEntityGPS;
 import com.germimonte.yapm.util.FunctionRandomize;
+import com.germimonte.yapm.util.PacketManager;
+import com.germimonte.yapm.util.PacketManager.MessageHandeler;
+import com.germimonte.yapm.util.PacketManager.MyMessage;
 
 public class CommonProxy {
 
@@ -69,5 +73,10 @@ public class CommonProxy {
 		LootFunctionManager.registerFunction(new FunctionRandomize.Serializer());
 		LootTableList.register(new ResourceLocation(YAPM.MOD_ID, "ruins"));
 		LootTableList.register(new ResourceLocation(YAPM.MOD_ID, "drive"));
+	}
+
+	public void registerPH() {
+		PacketManager.INSTANCE.registerMessage(MessageHandeler.class, MyMessage.class, 0, Side.CLIENT);
+		PacketManager.INSTANCE.registerMessage(MessageHandeler.class, MyMessage.class, 1, Side.SERVER);
 	}
 }

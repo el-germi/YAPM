@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.germimonte.yapm.init.ModItems;
+import com.germimonte.yapm.util.PacketManager;
 import com.germimonte.yapm.util.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -119,6 +120,13 @@ public class CommandYAPM extends CommandBase {
 			Util.log(out.toString());
 			notifyCommandListener(sender, this, out.toString(), new Object[0]);
 			return;
+		} else if ("test".equalsIgnoreCase(args[0])) {
+			if (sender instanceof EntityPlayerMP)
+				PacketManager.INSTANCE.sendTo(new PacketManager.MyMessage(1), (EntityPlayerMP) sender);
+			else
+				PacketManager.INSTANCE.sendToAll(new PacketManager.MyMessage(1));
+			notifyCommandListener(sender, this, "Sent", new Object[0]);
+			return;
 		}
 		throw new WrongUsageException("commands.yapm.usage", new Object[0]);
 	}
@@ -132,7 +140,7 @@ public class CommandYAPM extends CommandBase {
 			BlockPos targetPos) {
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "satellite", "itemInfo", "giveRockets", "blockInfo",
-					"summonStructure", "dumpLists");
+					"summonStructure", "dumpLists", "test");
 		} else {
 			if ("satellite".equalsIgnoreCase(args[0])) {
 				return getListOfStringsMatchingLastWord(args, "true", "false");

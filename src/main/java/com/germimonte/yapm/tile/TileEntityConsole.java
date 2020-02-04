@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.germimonte.yapm.blocks.BlockConsole;
 import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.util.DummyICS;
 import com.germimonte.yapm.util.IPeripheralBase;
@@ -28,6 +29,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -44,7 +46,6 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 
 	public SafeAL<ITextComponent> text = new SafeAL<ITextComponent>(7);
 	public Style style = new Style();
-
 	public boolean isOn = false;
 	public int lines = 1;
 
@@ -61,6 +62,10 @@ public class TileEntityConsole extends TileEntity implements IPeripheralBase {
 	public TileEntityConsole() {
 		super();
 		this.blockType = ModBlocks.CONSOLE;
+	}
+
+	public EnumFacing getDir() {
+		return world.getBlockState(pos).getValue(BlockConsole.FACING);
 	}
 
 	@Override

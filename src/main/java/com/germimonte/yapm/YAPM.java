@@ -49,6 +49,7 @@ public class YAPM {
 		proxy.registerBehaviors();
 		proxy.registerOreDict();
 		proxy.registerLTs();
+		proxy.registerPH();
 	}
 
 	@EventHandler

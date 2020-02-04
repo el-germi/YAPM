@@ -4,10 +4,12 @@ import com.germimonte.yapm.Config;
 import com.germimonte.yapm.Structure;
 import com.germimonte.yapm.init.ModBlocks;
 import com.germimonte.yapm.init.ModItems;
+import com.germimonte.yapm.renders.RenderRadioIcon;
 import com.germimonte.yapm.renders.TileEntityConsoleRenderer;
 import com.germimonte.yapm.util.ModelManager.ModelRegistrar;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +21,7 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
@@ -37,51 +40,36 @@ public class RegistryHandeler {
 
 	@SubscribeEvent
 	public static void onChat(net.minecraftforge.event.ServerChatEvent e) {
-		/*if (Config.debug) {
-			try {
-				String[] cm = e.getMessage().split(" ");
-				switch (cm[0]) {
-				case "l":
-					l = Integer.parseInt(cm[1]);
-					w = TileEntityConsoleRenderer.a[l];
-					x = TileEntityConsoleRenderer.ress[l][0];
-					y = TileEntityConsoleRenderer.ress[l][1];
-					z = TileEntityConsoleRenderer.ress[l][2];
-					s = TileEntityConsoleRenderer.ress[l][3];
-					break;
-				case "w":
-					w = Integer.parseInt(cm[1]);
-					TileEntityConsoleRenderer.a[l] = w;
-					break;
-				case "x":
-					x = Double.parseDouble(cm[1]);
-					TileEntityConsoleRenderer.ress[l][0] = x;
-					break;
-				case "y":
-					y = Double.parseDouble(cm[1]);
-					TileEntityConsoleRenderer.ress[l][1] = y;
-					break;
-				case "z":
-					z = Double.parseDouble(cm[1]);
-					TileEntityConsoleRenderer.ress[l][2] = z;
-					break;
-				case "s":
-					s = Double.parseDouble(cm[1]);
-					TileEntityConsoleRenderer.ress[l][3] = s;
-					break;
-				default:
-					throw new Throwable();
-				}
-				// Util.log(e.getMessage() + " done");
-				e.setCanceled(true);
-			} catch (Throwable t) {
-				if (e.getMessage().equalsIgnoreCase("dump")) {
-					Util.msgArchitect(e.getPlayer(),
-							String.format("line: %d w:%d x:%f y:%f z:%f s:%f", l, w, x, y, z, s));
-					e.setCanceled(true);
-				}
-			}
-		}*/
+		/*
+		 * if (Config.debug) { try { String[] cm = e.getMessage().split(" "); switch
+		 * (cm[0]) { case "l": l = Integer.parseInt(cm[1]); w =
+		 * TileEntityConsoleRenderer.a[l]; x = TileEntityConsoleRenderer.ress[l][0]; y =
+		 * TileEntityConsoleRenderer.ress[l][1]; z =
+		 * TileEntityConsoleRenderer.ress[l][2]; s =
+		 * TileEntityConsoleRenderer.ress[l][3]; break; case "w": w =
+		 * Integer.parseInt(cm[1]); TileEntityConsoleRenderer.a[l] = w; break; case "x":
+		 * x = Double.parseDouble(cm[1]); TileEntityConsoleRenderer.ress[l][0] = x;
+		 * break; case "y": y = Double.parseDouble(cm[1]);
+		 * TileEntityConsoleRenderer.ress[l][1] = y; break; case "z": z =
+		 * Double.parseDouble(cm[1]); TileEntityConsoleRenderer.ress[l][2] = z; break;
+		 * case "s": s = Double.parseDouble(cm[1]); TileEntityConsoleRenderer.ress[l][3]
+		 * = s; break; default: throw new Throwable(); } // Util.log(e.getMessage() +
+		 * " done"); e.setCanceled(true); } catch (Throwable t) { if
+		 * (e.getMessage().equalsIgnoreCase("dump")) { Util.msgArchitect(e.getPlayer(),
+		 * String.format("line: %d w:%d x:%f y:%f z:%f s:%f", l, w, x, y, z, s));
+		 * e.setCanceled(true); } } }
+		 */
+	}
+
+	private static final RenderRadioIcon rri = new RenderRadioIcon();
+
+	@SubscribeEvent
+	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
+		if (Minecraft.getMinecraft().player == null)
+			return;
+		if (PacketManager.message) {
+			rri.renderIcon(event.getResolution().getScaledWidth(), event.getResolution().getScaledHeight());
+		}
 	}
 
 	@SubscribeEvent

@@ -1,9 +1,11 @@
 package com.germimonte.yapm.renders;
 
 import java.util.List;
+
 import com.germimonte.yapm.blocks.BlockConsole;
 import com.germimonte.yapm.obj.RenderObj;
 import com.germimonte.yapm.tile.TileEntityConsole;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
@@ -25,29 +27,29 @@ public class TileEntityConsoleRenderer extends TileEntitySpecialRenderer<TileEnt
 	private final static RenderObj screen = new RenderObj("console_screen");
 
 	public void render(TileEntityConsole te, double x, double y, double z, float ticks, int stage, float alpha) {
-		final int line = te.lines;
-		final FontRenderer font = this.getFontRenderer();
-		final float ang = 360f
-				- te.getWorld().getBlockState(te.getPos()).getValue(BlockConsole.FACING).getHorizontalAngle();
+		final float ang = 360f - te.getDir().getHorizontalAngle();
 		final double nx = x + .5, nz = z + .5;
+
 		GlStateManager.pushMatrix();
 		base.render(nx, y, nz, 1f, ang, false);
-		if (te.isOn)
+		if (te.isOn) {
 			GlStateManager.disableLighting();
+		}
 		screen.render(nx, y, nz, 1f, ang, te.isOn);
 		GlStateManager.translate(nx, y + 1.3, nz);
-		GlStateManager.scale(ress[line][3], -ress[line][3], ress[line][3]);
+		GlStateManager.scale(ress[te.lines][3], -ress[te.lines][3], ress[te.lines][3]);
 		GlStateManager.rotate(ang, 0, 1, 0);
-		GlStateManager.translate(ress[line][0], ress[line][1], ress[line][2]);
+		GlStateManager.translate(ress[te.lines][0], ress[te.lines][1], ress[te.lines][2]);
 		GlStateManager.rotate(13.0779f, 1, 0, 0);
 		GlStateManager.depthMask(false);
 		if (te.isOn) {
-			for (int j = 0; j < line; ++j) {
+			for (int j = 0; j < te.lines; ++j) {
 				ITextComponent itxt = te.text.get(j);
 				if (itxt != null) {
-					List<ITextComponent> li = GuiUtilRenderComponents.splitText(itxt, a[line], font, false, true);
+					List<ITextComponent> li = GuiUtilRenderComponents.splitText(itxt, a[te.lines], getFontRenderer(),
+							false, true);
 					String s = li != null && !li.isEmpty() ? li.get(0).getFormattedText() : "";
-					font.drawString(s, 0, j * 10 - line * 5, 0);
+					getFontRenderer().drawString(s, 0, j * 10 - te.lines * 5, 0);
 				}
 			}
 			GlStateManager.enableLighting();
