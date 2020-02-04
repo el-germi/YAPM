@@ -1,33 +1,35 @@
 package com.germimonte.yapm.renders;
 
-import org.lwjgl.opengl.GL11;
-
 import com.germimonte.yapm.YAPM;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderRadioIcon extends Gui {
 
 	private static final ResourceLocation texture = new ResourceLocation(YAPM.MOD_ID, "textures/gui/icon.png");
 
-	public void renderIcon(int x, int y) {
-		// System.out.println("DRAWING");
-
-		x = x / 2 + 40;
-		y = y / 2 - 40;
-		//GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
-		//GL11.glPushMatrix();
-
+	public void renderIcon(ScaledResolution res) {
 		GlStateManager.enableBlend();
-		//GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
-		drawScaledCustomSizeModalRect(x, y, 0, 0, 300, 300, 100, 100, 300, 300);
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		double s = res.getScaledWidth() * 0.15;
+		double x = res.getScaledWidth() - s - 5;
+		double y = 5;
+		double t = 300.0 / 512.0;
+		bufferbuilder.pos(x + 0, y + s, 0).tex(0, t).endVertex();
+		bufferbuilder.pos(x + s, y + s, 0).tex(t, t).endVertex();
+		bufferbuilder.pos(x + s, y + 0, 0).tex(t, 0).endVertex();
+		bufferbuilder.pos(x + 0, y + 0, 0).tex(0, 0).endVertex();
+		tessellator.draw();
 		GlStateManager.disableBlend();
-
-		//GL11.glPopMatrix();
-		//GL11.glPopAttrib();
 	}
 }

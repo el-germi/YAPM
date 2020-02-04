@@ -30,9 +30,9 @@ public class PacketManager {
 
 	public static class MyMessage implements IMessage {
 
-		private int code;
+		public int code;
 		// code = 0 (BOTH) AKN (Unused)
-		// code = 1 (CLIENT) display image (2 secs)
+		// code = 1 (CLIENT) display radio icon
 
 		public MyMessage() {
 		}
@@ -73,12 +73,11 @@ public class PacketManager {
 		private synchronized void displayImage(MyMessage msg, MessageContext ctx) {
 			message = true;
 			t.schedule(new TimerTask() {
-
 				@Override
 				public void run() {
 					message = false;
 				}
-			}, 2000l);
+			}, 3000l);
 
 		}
 	}
