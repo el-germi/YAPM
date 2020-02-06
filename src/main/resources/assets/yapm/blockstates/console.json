@@ -1,12 +1,10 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "parent":"air"
-    },
     "variants": {
-        "normal": [
-            {
-            }
-        ]
+        "facing=east": {},
+        "facing=west": {},
+        "facing=north": {},
+        "facing=south": {},
+        "facing=up": {},
+        "facing=down": {}
     }
 }

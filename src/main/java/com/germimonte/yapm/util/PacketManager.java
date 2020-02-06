@@ -13,6 +13,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -31,24 +33,36 @@ public class PacketManager {
 	public static class MyMessage implements IMessage {
 
 		public int code;
-		// code = 0 (BOTH) AKN (Unused)
-		// code = 1 (CLIENT) display radio icon
+		// code = 0 (BOTH) AKN (Unused?)
+		// code = 1 (S->C) display radio icon
+		// code = 2 (S->C) available builds
+		// code = 3 (C->S) selected option
+
+		public int arg;
 
 		public MyMessage() {
+			this(0);
 		}
 
-		public MyMessage(int in) {
-			code = in;
+		public MyMessage(int code) {
+			this(code, 0);
+		}
+
+		public MyMessage(int code, int arg) {
+			this.code = code;
+			this.arg = arg;
 		}
 
 		@Override
 		public void fromBytes(ByteBuf buf) {
 			code = buf.readInt();
+			arg = buf.readInt();
 		}
 
 		@Override
 		public void toBytes(ByteBuf buf) {
 			buf.writeInt(code);
+			buf.writeInt(arg);
 		}
 	}
 
@@ -63,11 +77,25 @@ public class PacketManager {
 			case 1:
 				displayImage(message, ctx);
 				break;
+			case 2:
+				// give available builds to builder
+				break;
+			case 3:
+				setD(ctx.getServerHandler().player, message.arg);
+				break;
 			}
 			return null;
 		}
 
 		Timer t = new Timer();
+
+		@SuppressWarnings("unused")
+		private void setD(EntityPlayerMP player, int damage) {
+			ItemStack item = player.getActiveItemStack();
+			if (false/* item.equals(ModItems.BUILDER) */) {
+				item.setItemDamage(damage);
+			}
+		}
 
 		@SideOnly(Side.CLIENT)
 		private synchronized void displayImage(MyMessage msg, MessageContext ctx) {

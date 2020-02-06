@@ -26,24 +26,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy {
 
+	/** Register Item render */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerItemRenderer(Item item, int i, String id) {
+	public void registerIR(Item item, int i, String id) {
 		ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(item.getRegistryName(), id));
 	}
 
+	/** Register Turtle peripheral renders */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void textureAndModelInit() {
+	public void registerTRs() {
 		for (ITurtleUpgrade upgrade : ModPeripherals.TURTLE_UPGRADES) {
 			if (upgrade instanceof ModelManager.ModelRegistrar)
 				ModelManager.register((ModelManager.ModelRegistrar) upgrade);
 		}
 	}
 
+	/** Register special renders (TESR | Entities) */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerRender() {
+	public void registerSRs() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityRocket.class, RenderRocket.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySparks.class, RenderSparks.FACTORY);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityConsole.class, new TileEntityConsoleRenderer());

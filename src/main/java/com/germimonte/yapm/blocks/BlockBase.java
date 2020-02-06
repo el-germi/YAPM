@@ -25,6 +25,6 @@ public class BlockBase extends Block implements IHasModel {
 
 	@Override
 	public void registerModels() {
-		YAPM.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+		YAPM.proxy.registerIR(Item.getItemFromBlock(this), 0, "inventory");
 	}
 }

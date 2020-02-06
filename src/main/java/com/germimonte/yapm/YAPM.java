@@ -33,23 +33,23 @@ public class YAPM {
 		ModSounds.registerSounds();
 		OBJLoader.INSTANCE.addDomain(MOD_ID);
 		Util.LOGGER = e.getModLog();
-		proxy.regPeripheralsInt();
-		proxy.regEntits();
-		proxy.registerTileEntities();
-		proxy.registerRender();
+		proxy.registerPeripherals();
+		proxy.registerEntities();
+		proxy.registerTEs();
+		proxy.registerSRs();
 	}
 
 	@EventHandler
 	public static void init(FMLInitializationEvent e) {
-		proxy.textureAndModelInit();
+		proxy.registerTRs();
 	}
 
 	@EventHandler
 	public static void PostInit(FMLPostInitializationEvent e) {
-		proxy.registerBehaviors();
-		proxy.registerOreDict();
+		proxy.registerDBs();
+		proxy.registerODs();
 		proxy.registerLTs();
-		proxy.registerPH();
+		proxy.registerPHs();
 	}
 
 	@EventHandler

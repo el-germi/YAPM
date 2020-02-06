@@ -20,6 +20,6 @@ public class ItemBase extends Item implements IHasModel{
 
 	@Override
 	public void registerModels() {
-		YAPM.proxy.registerItemRenderer(this, 0, "inventory");
+		YAPM.proxy.registerIR(this, 0, "inventory");
 	}
 }

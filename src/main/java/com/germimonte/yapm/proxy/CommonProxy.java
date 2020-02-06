@@ -26,56 +26,67 @@ import com.germimonte.yapm.util.PacketManager.MyMessage;
 
 public class CommonProxy {
 
-	public void registerTileEntities() {
-		registerTileEntity(TileEntityGPS.class);
-		registerTileEntity(TileEntityConsole.class);
-	}
-
-	private void registerTileEntity(Class<? extends TileEntity> tileEntity) {
+	/** Register Tile entity */
+	private void registerTE(Class<? extends TileEntity> tileEntity) {
 		GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(YAPM.MOD_ID, tileEntity.getSimpleName()));
 	}
 
-	public void registerItemRenderer(Item item, int i, String string) {
-		// NOOP
+	/** Register Item render */
+	public void registerIR(Item item, int i, String string) {
+		// NOOP, client only
 	}
 
-	public void textureAndModelInit() {
-		// NOOP
+	/** Register Turtle peripheral renders */
+	public void registerTRs() {
+		// NOOP, client only
 	}
 
-	public void registerRender() {
-		// NOOP
+	/** Register special renders (TESR | Entities) */
+	public void registerSRs() {
+		// NOOP, client only
 	}
 
-	public void regEntits() {
+	/** Register Tile Entities */
+	public void registerTEs() {
+		registerTE(TileEntityGPS.class);
+		registerTE(TileEntityConsole.class);
+	}
+
+	/** Register Mod Entities */
+	public void registerEntities() {
 		EntityRegistry.registerModEntity(new ResourceLocation(YAPM.MOD_ID, "rocket"), EntityRocket.class, "rocket", 1,
 				YAPM.instance, 69, 2, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(YAPM.MOD_ID, "spark"), EntitySparks.class, "spark", 2,
 				YAPM.instance, 69, 5, false);
 	}
 
-	public void regPeripheralsInt() {
+	/** Register CC Peripherals */
+	public void registerPeripherals() {
 		ModPeripherals.registerInternally();
 		ModPeripherals.registerWithComputerCraft();
 	}
 
-	public void registerBehaviors() {
+	/** Register Ore Dictionary entries */
+	public void registerDBs() {
 		// BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BOWL, new
 		// BehaviorFireRocket());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.ROCKET, new BehaviorPlaceRocket());
 	}
 
-	public void registerOreDict() {
+	/** Register Ore Dictionary entries */
+	public void registerODs() {
 		OreDictionary.registerOre("record", ModItems.DISC);
 	}
 
+	/** Register Loot tables */
 	public void registerLTs() {
 		LootFunctionManager.registerFunction(new FunctionRandomize.Serializer());
 		LootTableList.register(new ResourceLocation(YAPM.MOD_ID, "ruins"));
 		LootTableList.register(new ResourceLocation(YAPM.MOD_ID, "drive"));
 	}
 
-	public void registerPH() {
+	/** Register packet handlers */
+	public void registerPHs() {
 		PacketManager.INSTANCE.registerMessage(MessageHandeler.class, MyMessage.class, 0, Side.CLIENT);
 		PacketManager.INSTANCE.registerMessage(MessageHandeler.class, MyMessage.class, 1, Side.SERVER);
 	}
