@@ -5,7 +5,7 @@ import java.util.stream.StreamSupport;
 import javax.annotation.Nullable;
 
 import com.germimonte.yapm.Config;
-import com.germimonte.yapm.SatManager;
+import com.germimonte.yapm.data.YAPMGlovalData;
 import com.germimonte.yapm.init.ModItems;
 import com.germimonte.yapm.init.ModSounds;
 import com.germimonte.yapm.util.Maths;
@@ -314,7 +314,7 @@ public class EntityRocket extends Entity {
 							this.posY - .5 + rand.nextFloat(), this.posZ - .5 + rand.nextFloat(), .5 - rand.nextFloat(),
 							(.5 - rand.nextFloat()) / 3, .5 - rand.nextFloat());
 				}
-				SatManager.setSatOnline(world, true);
+				YAPMGlovalData.setSatOnline(world, true);
 				this.setDead();
 			}
 		}

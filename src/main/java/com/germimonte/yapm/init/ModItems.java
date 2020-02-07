@@ -14,6 +14,7 @@ public class ModItems {
 	public static final ItemYapmRocket ROCKET = new ItemYapmRocket("rocket");
 	public static final ItemBase ENGINE = new ItemBase("engine");
 	public static final ItemDisc DISC = new ItemDisc("music", ModSounds.MUSIC);
+	public static final ItemBase BUILDER = null;// to be implemented
 
 	public static void addItem(Item i) {
 		ITEMS.add(i);

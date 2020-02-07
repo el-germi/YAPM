@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 
+import com.germimonte.yapm.data.YAPMGlovalData;
 import com.germimonte.yapm.init.ModItems;
 import com.germimonte.yapm.util.PacketManager;
 import com.germimonte.yapm.util.Util;
@@ -50,11 +51,11 @@ public class CommandYAPM extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if ("satellite".equalsIgnoreCase(args[0])) {
 			try {
-				SatManager.setSatOnline(sender.getEntityWorld(), Boolean.parseBoolean(args[1]));
+				YAPMGlovalData.setSatOnline(sender.getEntityWorld(), Boolean.parseBoolean(args[1]));
 			} catch (Exception e) {
 			}
 			notifyCommandListener(sender, this, "commands.yapm.succsess", args[0],
-					SatManager.isSatOnline(sender.getEntityWorld()) ? "online" : "offline");
+					YAPMGlovalData.isSatOnline(sender.getEntityWorld()) ? "online" : "offline");
 			return;
 		} else if ("itemInfo".equalsIgnoreCase(args[0])) {
 			ItemStack p = ((EntityPlayer) sender.getCommandSenderEntity()).getHeldItemMainhand();

@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import org.lwjgl.opengl.GL11;
 
 import com.germimonte.yapm.YAPM;
+import com.germimonte.yapm.init.ModItems;
 
 import dan200.computercraft.core.apis.http.Resource;
 import io.netty.buffer.ByteBuf;
@@ -75,7 +76,7 @@ public class PacketManager {
 		public MyMessage onMessage(MyMessage message, MessageContext ctx) {
 			switch (message.code) {
 			case 1:
-				displayImage(message, ctx);
+				displayImage();
 				break;
 			case 2:
 				// give available builds to builder
@@ -89,16 +90,15 @@ public class PacketManager {
 
 		Timer t = new Timer();
 
-		@SuppressWarnings("unused")
 		private void setD(EntityPlayerMP player, int damage) {
 			ItemStack item = player.getActiveItemStack();
-			if (false/* item.equals(ModItems.BUILDER) */) {
+			if (item.getItem().equals(ModItems.BUILDER)) {
 				item.setItemDamage(damage);
 			}
 		}
 
 		@SideOnly(Side.CLIENT)
-		private synchronized void displayImage(MyMessage msg, MessageContext ctx) {
+		private synchronized void displayImage() {
 			message = true;
 			t.schedule(new TimerTask() {
 				@Override
