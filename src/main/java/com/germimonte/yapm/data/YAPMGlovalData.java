@@ -64,19 +64,24 @@ public class YAPMGlovalData extends WorldSavedData {
 	}
 
 	public static int getPlayerBuilds(World world, String name) {
-		return syncGlobal(world).capable.get(name);
+		YAPMGlovalData manager = syncGlobal(world);
+		Integer i = manager.capable.get(name);
+		return i != null ? i : setBuildsHard(world, name, 0);
 	}
 
-	public static void setBuildsHard(World world, String name, int builds) {
+	public static int setBuildsHard(World world, String name, int builds) {
 		YAPMGlovalData manager = syncGlobal(world);
 		manager.capable.put(name, builds);
 		manager.setDirty(true);
+		return builds;
 	}
 
 	/** adds builds without removing any */
-	public static void setBuildsSoft(World world, String name, int builds) {
+	public static int setBuildsSoft(World world, String name, int builds) {
 		YAPMGlovalData manager = syncGlobal(world);
-		manager.capable.put(name, builds | manager.capable.get(name));
+		builds = builds | manager.capable.get(name);
+		manager.capable.put(name, builds);
 		manager.setDirty(true);
+		return builds;
 	}
 }
